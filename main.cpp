@@ -16,8 +16,8 @@ float vel_girl[2] = {0.f, 0.f};
 
 float slidef = 0.0001f;
 
-long long ljb = 0;
-long long ljg = 0; // last jump boy/girl.
+u64 ljb = 0;
+u64 ljg = 0; // last jump boy/girl.
 
 const float jumpf = 0.001f;
 SDL_FPoint boypos = {300.f, 300.f};
@@ -73,6 +73,7 @@ void keyevents() {
 
     if(keys[SDL_SCANCODE_A]) {
         vel_boy[0] -= slidef;
+        boypos.x -= 0.01f;
         if(-vel_boy[0] > vLIM) vel_boy[0] += slidef;
         if(vel_boy[0] > 0) vel_boy[0] /= 10.f;
     }
@@ -84,13 +85,14 @@ void keyevents() {
     // girl (arrows)
     if(keys[SDL_SCANCODE_RIGHT]) {
         vel_girl[0] += slidef;
+        girlpos.x += 0.01f;
         if(vel_girl[0] > vLIM) vel_girl[0] -= slidef;
         if(vel_girl[0] < 0) vel_girl[0] /= 10.f;
     }
 
     if(keys[SDL_SCANCODE_LEFT]) {
         vel_girl[0] -= slidef;
-        girlpos.x += 0.01f;
+        girlpos.x -= 0.01f;
         if(-vel_girl[0] > vLIM) vel_girl[0] += slidef;
         if(vel_girl[0] > 0) vel_girl[0] /= 10.f;
     }
@@ -119,8 +121,9 @@ SDL_AppResult SDL_AppIterate(void *appstate) {
     dec_abs(vel_boy[0]);
     dec_abs(vel_boy[1]);
 
+    if(boypos.y > WIDTH - sizey) boypos.y = WIDTH - sizey;
+    if(girlpos.y > WIDTH - sizey) girlpos.y = WIDTH - sizey;
 
-    
     SDL_FRect boy = {boypos.x, boypos.y, sizex, sizey};
     SDL_FRect girl = {girlpos.x, girlpos.y, sizex, sizey};
     solve_wall(boy, vel_boy[0], vel_boy[1]);

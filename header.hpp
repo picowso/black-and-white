@@ -2,6 +2,7 @@
 
 #define HEIGHT 640
 #define WIDTH 480
+using u64 = unsigned long long;
 
 const float sizex = 10.f;
 const float sizey = 30.f;

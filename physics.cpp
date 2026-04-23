@@ -14,23 +14,24 @@ void solve_collision(SDL_FRect &a, SDL_FRect &b) {
 
 // collision with wall
 void solve_wall(SDL_FRect &a, float &v, float &w) {
-	if(a.x <= 0) {
-		a.x = 0 + ep;
+	if(a.x < 0) {
+		a.x = 0;
 		v = 0.01;
 	}
 
-	if(a.y <= 0) {
-		a.y = 0 + ep;
+	if(a.y < 0) {
+		a.y = 0;
 		w = 0.01;
 	}
 
-	if(a.x >= HEIGHT - sizex) {
-		a.x = HEIGHT - sizex - ep;
+	if(a.x > HEIGHT - sizex) {
+		a.x = HEIGHT - sizex;
 		v = -0.01;
 	}
 
-	if(a.y >= WIDTH - sizey) {
-		a.y = WIDTH - sizey - ep;
-		w = -0.01;
-	}
+	// i already do it manually
+	// if(a.y > WIDTH - sizey) {
+	// 	a.y = WIDTH - sizey;
+	// 	w = -0.01;
+	// }
 }
